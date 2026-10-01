@@ -11,7 +11,7 @@ import {
 } from "@firfi/factor-sdk";
 
 export function createServer(client: FactorClient) {
-  const server = new McpServer({ name: "factor-meals-ca", version: "0.1.0" });
+  const server = new McpServer({ name: "factor-meals-ca", version: "0.1.1" });
   const readAnnotations = {
     readOnlyHint: true,
     destructiveHint: false,

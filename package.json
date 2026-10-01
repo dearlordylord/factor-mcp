@@ -27,7 +27,7 @@
     "typescript": "^5.9.3",
     "vitest": "^4.1.0"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Open-source SDK, MCP server and CLI for Factor Meals Canada",
   "license": "MIT",
   "engines": {

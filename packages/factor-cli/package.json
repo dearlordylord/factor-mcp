@@ -1,6 +1,6 @@
 {
   "name": "@firfi/factor-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "node ../../scripts/build-package.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "start": "node dist/bin.js",
     "auth:login": "node dist/bin.js auth login",
@@ -49,7 +49,9 @@
     "dist/**/*.d.ts",
     "README.md",
     "LICENSE",
-    "extension/*.js",
+    "extension/background.js",
+    "extension/bridge.js",
+    "extension/page-observer.js",
     "extension/manifest.json"
   ]
 }

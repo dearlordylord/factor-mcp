@@ -18,3 +18,4 @@ config.js
 local-session-snapshots/
 PREFERENCES.md
 WEEKLY-PLAN*.md
+release/

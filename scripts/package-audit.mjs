@@ -23,7 +23,7 @@ export function auditPackages(archives) {
     if (
       entries.some(
         (e) =>
-          !/^package\/(?:package\.json|README\.md|LICENSE|dist\/[^\s]+\.(?:js|d\.ts)|extension\/(?:[a-z-]+\.js|manifest\.json))$/.test(
+          !/^package\/(?:package\.json|README\.md|LICENSE|dist\/[^\s]+\.(?:js|d\.ts)|extension\/(?:(?:background|bridge|page-observer)\.js|manifest\.json))$/.test(
             e,
           ),
       )

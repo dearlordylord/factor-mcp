@@ -24,7 +24,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: node scripts/verify-release.mjs
       - run: pnpm release:check
-      - run: mkdir release && pnpm -r --filter './packages/*' pack --pack-destination ../../release
+      - run: mkdir release && node --input-type=module -e "import {resolve} from 'node:path'; import {packPackages,auditPackages} from './scripts/package-audit.mjs'; auditPackages(packPackages(resolve('release')))"
       - run: sha256sum release/*.tgz > release/SHA256SUMS
       - name: Publish installable packages
         env:

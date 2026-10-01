@@ -10,13 +10,13 @@ Read weekly meals and selections, edit permissions and the exact cutoff, plan qu
 
 Requires Node.js 22.22.2+ or 24.15.0+ within those major versions. Factor Canada subscriptions only.
 
-Install the v0.1.0 packages from the public GitHub Release:
+Install the v0.1.1 packages from the public GitHub Release:
 
 ```bash
 npm install -g \
-  https://github.com/dearlordylord/factor-mcp/releases/download/v0.1.0/firfi-factor-sdk-0.1.0.tgz \
-  https://github.com/dearlordylord/factor-mcp/releases/download/v0.1.0/firfi-factor-mcp-0.1.0.tgz \
-  https://github.com/dearlordylord/factor-mcp/releases/download/v0.1.0/firfi-factor-cli-0.1.0.tgz
+  https://github.com/dearlordylord/factor-mcp/releases/download/v0.1.1/firfi-factor-sdk-0.1.1.tgz \
+  https://github.com/dearlordylord/factor-mcp/releases/download/v0.1.1/firfi-factor-mcp-0.1.1.tgz \
+  https://github.com/dearlordylord/factor-mcp/releases/download/v0.1.1/firfi-factor-cli-0.1.1.tgz
 factor auth capture
 ```
 
