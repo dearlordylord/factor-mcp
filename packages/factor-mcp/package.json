@@ -1,0 +1,59 @@
+{
+  "name": "@firfi/factor-mcp",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/bin.js",
+    "prepack": "pnpm build"
+  },
+  "dependencies": {
+    "@firfi/factor-sdk": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "zod": "^3.25.76"
+  },
+  "bin": {
+    "factor-mcp": "dist/bin.js"
+  },
+  "description": "Factor Meals Canada MCP server for weekly menus, recipe ingredients, quota, history, and saved selections",
+  "license": "MIT",
+  "author": "firfi",
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dearlordylord/factor-mcp.git",
+    "directory": "packages/factor-mcp"
+  },
+  "homepage": "https://github.com/dearlordylord/factor-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/dearlordylord/factor-mcp/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "factor",
+    "meal-prep",
+    "canada"
+  ],
+  "mcpName": "io.github.dearlordylord/factor-mcp"
+}

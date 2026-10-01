@@ -1,0 +1,36 @@
+{
+  "name": "factor-workspace",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.29.3",
+  "scripts": {
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck && tsc -p tsconfig.tests.json",
+    "test": "vitest run",
+    "check-all": "pnpm build && pnpm typecheck && pnpm check-format && pnpm test",
+    "auth:login": "pnpm --filter @firfi/factor-cli auth:login",
+    "factor": "pnpm --filter @firfi/factor-cli start",
+    "mcp": "pnpm --filter @firfi/factor-mcp start",
+    "format": "prettier --write .",
+    "check-format": "prettier --check .",
+    "auth:capture": "pnpm --filter @firfi/factor-cli auth:capture",
+    "prepare": "husky",
+    "secrets:check": "node scripts/check-secrets.mjs",
+    "package:audit": "node scripts/package-audit.mjs",
+    "package:smoke": "node scripts/package-smoke.mjs",
+    "release:check": "pnpm check-all && pnpm secrets:check && pnpm package:audit && pnpm package:smoke"
+  },
+  "devDependencies": {
+    "@types/node": "^25.1.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.9.9",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.0"
+  },
+  "version": "0.1.0",
+  "description": "Open-source SDK, MCP server and CLI for Factor Meals Canada",
+  "license": "MIT",
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Factor local session capture",
+  "version": "0.1.0",
+  "description": "Capture your signed-in Factor session to the local Factor MCP. No passwords or other sites are collected.",
+  "permissions": ["cookies"],
+  "host_permissions": [
+    "https://www.factormeals.ca/*",
+    "https://factormeals.ca/*",
+    "http://127.0.0.1:38471/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Factor session capture: refresh your signed-in Factor tab"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.factormeals.ca/*", "https://factormeals.ca/*"],
+      "js": ["page-observer.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://www.factormeals.ca/*", "https://factormeals.ca/*"],
+      "js": ["bridge.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

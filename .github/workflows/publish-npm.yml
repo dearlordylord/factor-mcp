@@ -1,0 +1,32 @@
+name: Publish npm packages
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+        with:
+          version: 10.29.3
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: "24.15.0"
+          registry-url: https://registry.npmjs.org
+      - run: bash scripts/install-gitleaks.sh
+      - run: pnpm install --frozen-lockfile
+      - run: node scripts/verify-release.mjs
+      - run: pnpm release:check
+      - name: Publish in dependency order
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          test -n "$NODE_AUTH_TOKEN" || { echo 'Configure repository NPM_TOKEN first'; exit 1; }
+          pnpm --filter @firfi/factor-sdk publish --access public --no-git-checks
+          pnpm --filter @firfi/factor-mcp publish --access public --no-git-checks
+          pnpm --filter @firfi/factor-cli publish --access public --no-git-checks

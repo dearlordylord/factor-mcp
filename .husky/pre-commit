@@ -1,0 +1,3 @@
+set -eu
+node scripts/check-private-files.mjs
+gitleaks git --pre-commit --staged --redact --no-banner

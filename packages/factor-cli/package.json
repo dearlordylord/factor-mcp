@@ -1,0 +1,55 @@
+{
+  "name": "@firfi/factor-cli",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/bin.js",
+    "auth:login": "node dist/bin.js auth login",
+    "auth:capture": "node dist/bin.js auth capture",
+    "prepack": "pnpm build"
+  },
+  "dependencies": {
+    "@firfi/factor-sdk": "workspace:*",
+    "playwright": "^1.58.2",
+    "zod": "^3.25.76"
+  },
+  "bin": {
+    "factor": "dist/bin.js"
+  },
+  "description": "Local authentication and account CLI for Factor Meals Canada",
+  "license": "MIT",
+  "author": "firfi",
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dearlordylord/factor-mcp.git",
+    "directory": "packages/factor-cli"
+  },
+  "homepage": "https://github.com/dearlordylord/factor-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/dearlordylord/factor-mcp/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "README.md",
+    "LICENSE",
+    "extension/*.js",
+    "extension/manifest.json"
+  ]
+}

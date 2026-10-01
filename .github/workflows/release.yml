@@ -1,0 +1,32 @@
+name: GitHub Release
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: read
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+        with:
+          version: 10.29.3
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: "24.15.0"
+          cache: pnpm
+      - run: bash scripts/install-gitleaks.sh
+      - run: pnpm install --frozen-lockfile
+      - run: node scripts/verify-release.mjs
+      - run: pnpm release:check
+      - run: mkdir release && pnpm -r --filter './packages/*' pack --pack-destination ../../release
+      - run: sha256sum release/*.tgz > release/SHA256SUMS
+      - name: Publish installable packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" release/*.tgz release/SHA256SUMS --verify-tag --title "$GITHUB_REF_NAME" --notes-file docs/release-notes.md
