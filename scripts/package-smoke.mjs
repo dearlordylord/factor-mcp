@@ -32,24 +32,18 @@ try {
     [manager === "npm" ? "install" : "add", ...archives, "--ignore-scripts"],
     { cwd: consumer, stdio: "pipe", timeout: 120000 },
   );
-  const script = `import {Client} from '@modelcontextprotocol/sdk/client/index.js';
- import {StdioClientTransport} from '@modelcontextprotocol/sdk/client/stdio.js';
+  const script = `import {createRequire} from 'node:module';
+ import {realpathSync} from 'node:fs';
+ const require=createRequire(realpathSync('node_modules/@firfi/factor-mcp/dist/bin.js'));
+ const {Client}=await import(require.resolve('@modelcontextprotocol/sdk/client/index.js'));
+ const {StdioClientTransport}=await import(require.resolve('@modelcontextprotocol/sdk/client/stdio.js'));
  import {FactorClient} from '@firfi/factor-sdk';
  const c=new Client({name:'clean-consumer',version:'1'});
  try{await c.connect(new StdioClientTransport({command:process.execPath,args:['node_modules/@firfi/factor-mcp/dist/bin.js'],env:{...process.env,FACTOR_AUTH_SESSION_PATH:'missing-test-session.json'}}));
  const tools=await c.listTools();if(tools.tools.length!==10)throw Error('Missing tools');
  const health=await c.callTool({name:'factor_check_session_health',arguments:{}});if(!health.isError)throw Error('Expected authentication guidance');
  console.log('Clean installation: 10 MCP tools and safe missing-session guidance');}finally{await c.close();}`;
-  // Resolve SDK transport in both npm and pnpm installations from the MCP package.
-  writeFileSync(
-    join(consumer, "smoke.mjs"),
-    script.replaceAll(
-      "from '@modelcontextprotocol/sdk/client/",
-      "from './node_modules/@firfi/factor-mcp/node_modules/@modelcontextprotocol/sdk/dist/esm/client/",
-    ),
-  );
-  // npm may hoist dependencies; use its usual top-level imports instead.
-  if (manager === "npm") writeFileSync(join(consumer, "smoke.mjs"), script);
+  writeFileSync(join(consumer, "smoke.mjs"), script);
   execFileSync(process.execPath, ["smoke.mjs"], {
     cwd: consumer,
     stdio: "inherit",
