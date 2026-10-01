@@ -10,19 +10,22 @@ Read weekly meals and selections, edit permissions and the exact cutoff, plan qu
 
 Requires Node.js 22.22.2+ or 24.15.0+ within those major versions. Factor Canada subscriptions only.
 
-Install the v0.1.1 packages from the public GitHub Release:
+Install the published npm packages:
 
 ```bash
-npm install -g \
-  https://github.com/dearlordylord/factor-mcp/releases/download/v0.1.1/firfi-factor-sdk-0.1.1.tgz \
-  https://github.com/dearlordylord/factor-mcp/releases/download/v0.1.1/firfi-factor-mcp-0.1.1.tgz \
-  https://github.com/dearlordylord/factor-mcp/releases/download/v0.1.1/firfi-factor-cli-0.1.1.tgz
+npm install -g @firfi/factor-cli@0.1.1 @firfi/factor-mcp@0.1.1
 factor auth capture
 ```
 
-Configure your MCP client with `command: "factor-mcp"` and `args: []`. Each user captures their own Factor session locally; no maintainer account or credentials are distributed. The temporary capture extension can be removed afterward; renewal is necessary when Factor expires the session.
+Or capture a session without a global installation:
 
-npm registry publication is separate from the GitHub Release. Do not use `npx @firfi/factor-mcp` until that package has been published to npm.
+```bash
+npx -y @firfi/factor-cli@0.1.1 auth capture
+```
+
+Configure your MCP client as shown below. Each user captures their own Factor session locally; no maintainer account or credentials are distributed. The temporary capture extension can be removed afterward; renewal is necessary when Factor expires the session.
+
+The [GitHub Release](https://github.com/dearlordylord/factor-mcp/releases/tag/v0.1.1) also provides package tarballs. The SDK is available separately as `@firfi/factor-sdk` for application developers.
 
 ## Setup from source
 
@@ -64,20 +67,20 @@ The SDK preserves the captured origin (`factormeals.ca` or `www.factormeals.ca`)
 
 ## MCP configuration
 
-For the GitHub Release installation:
+Run the published npm package:
 
 ```json
 {
   "mcpServers": {
     "factor": {
-      "command": "factor-mcp",
-      "args": []
+      "command": "npx",
+      "args": ["-y", "@firfi/factor-mcp@0.1.1"]
     }
   }
 }
 ```
 
-For a source checkout, use `node` as the command and the absolute path to `packages/factor-mcp/dist/bin.js` as its argument. The default session path is resolved from your home directory. Set `FACTOR_AUTH_SESSION_PATH` only to override it.
+For a global installation, use `command: "factor-mcp"` and `args: []`. For a source checkout, use `node` as the command and the absolute path to `packages/factor-mcp/dist/bin.js` as its argument. The default session path is resolved from your home directory. Set `FACTOR_AUTH_SESSION_PATH` only to override it.
 
 The server uses stdio; it starts without credentials and returns login guidance when an account tool is called. It does not open a browser inside MCP or expose an HTTP listener.
 
