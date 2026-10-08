@@ -16,7 +16,7 @@
     "prepack": "pnpm build"
   },
   "dependencies": {
-    "zod": "^3.25.76"
+    "zod": "^4.6.5"
   },
   "description": "Typed local SDK for Factor Meals Canada account, recipes, history, and weekly selections",
   "license": "MIT",
